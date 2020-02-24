@@ -5,35 +5,55 @@ import os
 
 allfiles = ''
 
-def Back(dayID):
-    for files in os.walk('../VkBot/ExcelStorage/'):
+
+def Back(dayID, classLetter):
+    classNumber = int(11)
+    if classLetter == "P":
+        classNumber = int(11)
+    if classLetter == "O":
+        classNumber = int(10)
+    if classLetter == "N":
+        classNumber = int(9)
+    if classLetter == "M":
+        classNumber = int(8)
+    if classLetter == "L":
+        classNumber = int(7)
+
+    for files in os.walk('../gitHome/ExcelStorage/'):
         for _file in files:
             allfiles = _file
 
-    raspbody = xlrd.open_workbook('../VkBot/ExcelStorage/' + allfiles[-1], formatting_info=True)
+    raspbody = xlrd.open_workbook('../gitHome/ExcelStorage/' + allfiles[-1], formatting_info=True)
     sheet = raspbody.sheet_by_index(-3)
     predmemultitlist = [sheet.row_values(rownum) for rownum in range(sheet.nrows)]
-    nasherasp1 = [[str(sheet.row_values(3, -1)), str(sheet.row_values(6, -1)), str(sheet.row_values(9, -1)),
-                   str(sheet.row_values(12, -1))],
-                  [str(sheet.row_values(15, -1)), str(sheet.row_values(18, -1)), str(sheet.row_values(21, -1)),
-                   str(sheet.row_values(24, -1))],
-                  [str(sheet.row_values(27, -1)), str(sheet.row_values(30, -1)), str(sheet.row_values(33, -1)),
-                   str(sheet.row_values(36, -1))]
+    nasherasp1 = [[str(sheet.row_values(3, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(6, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(9, -1 - (11 - classNumber), -1 - (11 - classNumber))),
+                   str(sheet.row_values(12, -1 - (11 - classNumber), -(11 - classNumber)))],
+                  [str(sheet.row_values(15, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(18, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(21, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(24, -1 - (11 - classNumber), -(11 - classNumber)))],
+                  [str(sheet.row_values(27, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(30, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(33, -1 - (11 - classNumber), -(11 - classNumber))),
+                   str(sheet.row_values(36, -1 - (11 - classNumber), -(11 - classNumber)))]
                   ]
-
 
     # Перенос данных со второй страницы
     sheet = raspbody.sheet_by_index(-2)
-    nasherasp1.append([[str(sheet.row_values(3, 15)), str(sheet.row_values(6, 15)), str(sheet.row_values(9, 15)),
-                        str(sheet.row_values(12, 15))],
-                       [str(sheet.row_values(15, 15)), str(sheet.row_values(18, 15)), str(sheet.row_values(21, 15)),
-                        str(sheet.row_values(24, 15))],
-                       [str(sheet.row_values(27, 15)), str(sheet.row_values(30, 15)), str(sheet.row_values(33, 15)),
-                        str(sheet.row_values(36, 15))]])
-
-
-
-
+    nasherasp1.append([[str(sheet.row_values(3, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(6, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(9, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(12, 15 - (11 - classNumber), 16 - (11 - classNumber)))],
+                       [str(sheet.row_values(15, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(18, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(21, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(24, 15 - (11 - classNumber), 16 - (11 - classNumber)))],
+                       [str(sheet.row_values(27, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(30, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(33, 15 - (11 - classNumber), 16 - (11 - classNumber))),
+                        str(sheet.row_values(36, 15 - (11 - classNumber), 16 - (11 - classNumber)))]])
 
     dayrasp = ''
     if (dayID == 6) or (dayID == 7):
@@ -69,11 +89,11 @@ def Back(dayID):
             predmet = re.sub(r"n", "", predmet)
             dayrasp = dayrasp + predmet + '\n'
 
-
     return dayrasp
 
 
 def LastRasp():
+    allfiles = ''
     for files in os.walk('../VkBot/ExcelStorage/'):
         for _file in files:
             allfiles = _file
